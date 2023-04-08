@@ -8,7 +8,6 @@ import {
   FormBtn,
   Field,
 } from './PhonebookFrom.styled';
-// import { addContacts } from 'redux/contactsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts } from 'redux/selectors';
 import { addContact } from 'redux/operations';
