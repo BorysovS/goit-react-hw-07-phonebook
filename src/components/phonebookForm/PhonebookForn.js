@@ -38,7 +38,7 @@ export const ContactForm = () => {
 
   const handleSubmit = newContact => {
     const normalizeName = newContact.name.toLowerCase();
-    console.log(newContact);
+
     if (
       contacts.find(contact => contact.name.toLowerCase() === normalizeName)
     ) {
@@ -47,11 +47,8 @@ export const ContactForm = () => {
     }
     dispatch(addContact(newContact));
     toast.success('Contacts is add to your phonebook!');
-
-    console.log('submit');
   };
 
-  console.log(contacts);
   return (
     <Formik
       initialValues={{ name: '', phone: '' }}

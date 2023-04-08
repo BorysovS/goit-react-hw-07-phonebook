@@ -1,7 +1,6 @@
 import { AiOutlinePhone } from 'react-icons/ai';
 import { Item, ItemBtn } from './ContactList.styled';
 import PropTypes from 'prop-types';
-// import { deleteContact } from 'redux/contactsSlice';
 import { useDispatch } from 'react-redux';
 import { deleteContact } from 'redux/operations';
 import toast from 'react-hot-toast';
