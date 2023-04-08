@@ -11,6 +11,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts } from 'redux/selectors';
 import { addContact } from 'redux/operations';
+import toast from 'react-hot-toast';
 
 const ContactSchema = Yup.object().shape({
   name: Yup.string()
@@ -38,9 +39,15 @@ export const ContactForm = () => {
   const handleSubmit = newContact => {
     const normalizeName = newContact.name.toLowerCase();
     console.log(newContact);
-    contacts.find(contact => contact.name.toLowerCase() === normalizeName)
-      ? alert(`${normalizeName} is already on contacts`)
-      : dispatch(addContact(newContact));
+    if (
+      contacts.find(contact => contact.name.toLowerCase() === normalizeName)
+    ) {
+      toast.error('This contact is alredy in ypur phonebook');
+      return;
+    }
+    dispatch(addContact(newContact));
+    toast.success('Contacts is add to your phonebook!');
+
     console.log('submit');
   };
 

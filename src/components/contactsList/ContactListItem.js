@@ -4,12 +4,14 @@ import PropTypes from 'prop-types';
 // import { deleteContact } from 'redux/contactsSlice';
 import { useDispatch } from 'react-redux';
 import { deleteContact } from 'redux/operations';
+import toast from 'react-hot-toast';
 
 export const ContactListItem = ({ name, phone, id }) => {
   const dispatch = useDispatch();
 
   const hadleDelete = id => {
     dispatch(deleteContact(id));
+    toast.success('Contact is delete');
   };
 
   return (

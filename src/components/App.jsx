@@ -6,6 +6,7 @@ import { Filter } from './filter/Filter';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchContacts } from 'redux/operations';
+import { Toaster } from 'react-hot-toast';
 
 
 export const App = () => {
@@ -24,6 +25,7 @@ useEffect(() => {
       <Filter />
       <ContactList />
       <GlobalStyle />
+      < Toaster />
     </Layout>
   )
 };
