@@ -1,11 +1,13 @@
 import { ContactListItem } from './ContactListItem';
 import { ContactsList, ListItem } from './ContactList.styled';
 import { useSelector } from 'react-redux';
-import { getContacts, getFiltered } from 'redux/selectors';
+import { selectContacts, selectFiltered } from 'redux/selectors';
+import { Circles } from 'react-loader-spinner';
 
 export const ContactList = () => {
-  const contacts = useSelector(getContacts);
-  const filter = useSelector(getFiltered);
+  const contacts = useSelector(selectContacts);
+  const filter = useSelector(selectFiltered);
+  const isLoading = useSelector(state => state.contacts.isLoading);
 
   const getFilterContacts = () => {
     const normalizedFilter = filter.toLowerCase().trim();
@@ -16,13 +18,14 @@ export const ContactList = () => {
 
   return (
     <ContactsList>
+      {isLoading && <Circles />}
       {getFilterContacts().map(contact => {
         return (
           <ListItem key={contact.id}>
             <ContactListItem
               id={contact.id}
               name={contact.name}
-              number={contact.number}
+              phone={contact.phone}
             />
           </ListItem>
         );

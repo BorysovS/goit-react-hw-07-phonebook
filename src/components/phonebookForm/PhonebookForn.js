@@ -8,9 +8,10 @@ import {
   FormBtn,
   Field,
 } from './PhonebookFrom.styled';
-import { addContacts } from 'redux/contactsSlice';
+// import { addContacts } from 'redux/contactsSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { getContacts } from 'redux/selectors';
+import { selectContacts } from 'redux/selectors';
+import { addContact } from 'redux/operations';
 
 const ContactSchema = Yup.object().shape({
   name: Yup.string()
@@ -21,33 +22,36 @@ const ContactSchema = Yup.object().shape({
       'Name is not valid'
     )
     .required('Required'),
-  number: Yup.string()
+  phone: Yup.string()
     .min(9, 'Format tel: xxx-xx-xx')
     .max(15, 'Format tel: xxx-xx-xx')
     .matches(
       /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/,
-      'Number is not valid'
+      'Phone is not valid'
     )
     .required('Required'),
 });
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
 
   const handleSubmit = newContact => {
     const normalizeName = newContact.name.toLowerCase();
+    console.log(newContact);
     contacts.find(contact => contact.name.toLowerCase() === normalizeName)
       ? alert(`${normalizeName} is already on contacts`)
-      : dispatch(addContacts(newContact.name, newContact.number));
+      : dispatch(addContact(newContact));
+    console.log('submit');
   };
 
   console.log(contacts);
   return (
     <Formik
-      initialValues={{ name: '', number: '' }}
+      initialValues={{ name: '', phone: '' }}
       onSubmit={(values, actions) => {
         handleSubmit(values);
+        console.log('submit');
         actions.resetForm();
       }}
       validationSchema={ContactSchema}
@@ -58,10 +62,10 @@ export const ContactForm = () => {
           <Field name="name" placeholder="Name" />
           <ErrorMessage name="name" component="span" />
         </FormLabel>
-        <FormLabel htmlFor="number">
+        <FormLabel htmlFor="phone">
           <LabelName>Number</LabelName>
-          <Field name="number" placeholder="xxx-xx-xx" />
-          <ErrorMessage name="number" component="span" />
+          <Field name="phone" placeholder="xxx-xx-xx" />
+          <ErrorMessage name="phone" component="span" />
         </FormLabel>
         <FormBtn type="submit">Add contact</FormBtn>
       </Form>

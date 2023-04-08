@@ -1,18 +1,23 @@
 import { AiOutlinePhone } from 'react-icons/ai';
 import { Item, ItemBtn } from './ContactList.styled';
 import PropTypes from 'prop-types';
-import { deleteContact } from 'redux/contactsSlice';
+// import { deleteContact } from 'redux/contactsSlice';
 import { useDispatch } from 'react-redux';
+import { deleteContact } from 'redux/operations';
 
-export const ContactListItem = ({ name, number, id }) => {
+export const ContactListItem = ({ name, phone, id }) => {
   const dispatch = useDispatch();
+
+  const hadleDelete = id => {
+    dispatch(deleteContact(id));
+  };
 
   return (
     <Item>
       <AiOutlinePhone />
       <span>{name}:</span>
-      <span>{number}</span>
-      <ItemBtn type="button" onClick={() => dispatch(deleteContact(id))}>
+      <span>{phone}</span>
+      <ItemBtn type="button" onClick={() => hadleDelete(id)}>
         Delete
       </ItemBtn>
     </Item>
@@ -22,5 +27,5 @@ export const ContactListItem = ({ name, number, id }) => {
 ContactListItem.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,
+  phone: PropTypes.string.isRequired,
 };

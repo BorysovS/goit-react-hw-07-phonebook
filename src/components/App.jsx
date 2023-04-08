@@ -3,9 +3,19 @@ import { GlobalStyle } from './GlobalStyle';
 import { Layout } from './Layout/Layout';
 import { ContactList } from './contactsList/ContactList';
 import { Filter } from './filter/Filter';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { fetchContacts } from 'redux/operations';
 
 
 export const App = () => {
+  const dispatch = useDispatch();
+
+useEffect(() => {
+ dispatch(fetchContacts()) 
+}, [dispatch])
+
+
     return (
     <Layout>
       <h1>Phonebook</h1>
