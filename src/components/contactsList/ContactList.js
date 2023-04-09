@@ -2,7 +2,7 @@ import { ContactListItem } from './ContactListItem';
 import { ContactsList, ListItem } from './ContactList.styled';
 import { useSelector } from 'react-redux';
 import { selectVisibleContact, selectIsLoading } from 'redux/selectors';
-import { Circles } from 'react-loader-spinner';
+import { Loader } from 'components/Loader/Loader';
 
 export const ContactList = () => {
   const isLoading = useSelector(selectIsLoading);
@@ -10,7 +10,7 @@ export const ContactList = () => {
 
   return (
     <ContactsList>
-      {isLoading && <Circles />}
+      {isLoading && <Loader />}
       {visibleContacts.map(contact => {
         return (
           <ListItem key={contact.id}>

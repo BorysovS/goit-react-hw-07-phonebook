@@ -45,6 +45,10 @@ const contactsSlice = createSlice({
         );
         state.items.splice(indexContact, 1);
         state.error = null;
+      })
+      .addCase(deleteContact.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       });
   },
 });
